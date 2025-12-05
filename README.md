@@ -71,12 +71,14 @@ The dataset is synthetically generated but follows real-world medical and behavi
 
 Drowsiness Probability Formula
 drowsy_prob = (
-      0.45 * (1 - alertness)     
-    + 0.40 * (fatigue / 10)      
-    + 0.10 * (heart_rate > 100)  
-    + 0.05 * (speed < 60)        
+    0.35*(1-df['Alertness'])+
+    0.30*(df['Fatigue'])+
+    0.10*(df['R']>105).astype(int)+
+    0.05*(df['HR']<55).astype(int)+
+    0.08*(df['Speed']<50).astype(int)+
+    0.07*(df['speed_change']<8).astype(int)+
+    0.05*((df['prev_alertness']-df['Alertness'])>0.2).astype(int)
 )
-
 
 This ensures:
 
